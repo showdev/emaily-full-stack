@@ -1,10 +1,18 @@
 const express = require('express')
+const bodyParser = require('body-parser')
+
+const { authRoutes } = require('./routes/auth-routes')
+
+require('./services/passport')
+
 const app = express()
 
-const port = process.env.PORT
+app.use(bodyParser.json())
 
-app.get('/', (req, res) => {
-  res.send({"HI": "THERE"})
+authRoutes(app)
+
+const port = process.env.PORT || 5000
+app.listen(port, () => {
+  console.log(`Server started successfully on port ${port}`)
 })
 
-app.listen(port || 5000)
