@@ -17,7 +17,7 @@ const authRoutes = (app) => {
   )
   app.get('/auth/facebook/callback', passport.authenticate('facebook'))
 
-  app.get('/api/logout', (req, res) => {
+  app.get('/api/logout', (req, res) => { 
     req.logout()
     res.send(req.user)
   })
