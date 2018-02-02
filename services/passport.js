@@ -55,29 +55,3 @@ passport.use(
     }
   )
 )
-
-passport.use(
-  new FacebookStrategy(
-    {
-      clientID: facebookAppId,
-      clientSecret: facebookAppSecret,
-      callbackURL: '/auth/facebook/callback',
-    },
-    async (accessToken, refreshToken, profile, done) => {
-      const existingUser = await User.findOne({ facebookId: profile.id })
-
-      if (existingUser) {
-        done(null, existingUser)
-        return
-      }
-
-      try {
-        const newUser = await new User({ facebookId: profile.id }).save()
-        console.log('SAVED:', newUser)
-        done(null, newUser)
-      } catch (error) {
-        console.log('ERROR', error)
-      }
-    }
-  )
-)
