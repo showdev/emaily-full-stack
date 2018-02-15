@@ -16,11 +16,9 @@ class Header extends Component {
         return ''
       case false:
         return (
-          <div className="navbar-nav">
-            <a className="nav-item nav-link" href="/auth/google">
-              Log With Google
-            </a>
-          </div>
+          <a className="btn nav-item nav-link" href="/auth/google">
+            Log With Google
+          </a>
         )
       default:
         return [
@@ -30,9 +28,9 @@ class Header extends Component {
           <span key="2" className="nav-item nav-link card mx-2">
             Credits: {this.props.auth.credits}
           </span>,
-          <span key="3" className="nav-item nav-link p-0" href="/api/logout">
-            <button className="btn">Log out</button>
-          </span>,
+          <a key="3" className="btn nav-item nav-link" href="/api/logout">
+           Log out
+          </a>,
         ]
     }
   }
