@@ -3,7 +3,7 @@ const { requireLogin } = require('../middlewares/require-login')
 const stripe = require('stripe')(stripeSecretKey)
 const User = require('../models/user')
 
-const billingRoutes = app => {
+exports.billingRoutes = app => {
   app.post('/api/stripe', requireLogin, async (req, res) => {
     console.log('Hello')
 
@@ -22,4 +22,3 @@ const billingRoutes = app => {
   })
 }
 
-module.exports = { billingRoutes }

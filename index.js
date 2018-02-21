@@ -6,10 +6,13 @@ const passport = require('passport')
 require('./config/environment')
 require('./services/mongoose')
 require('./models/user')
+require('./models/survey')
 require('./services/passport')
 
 const { authRoutes } = require('./routes/auth-routes')
 const { billingRoutes } = require('./routes/billing-routes')
+const { surveyRoutes } = require('./routes/survey-routes')
+
 const { cookieKey } = require('./config/keys')
 
 const app = express()
@@ -26,6 +29,7 @@ app.use(passport.session())
 
 authRoutes(app)
 billingRoutes(app)
+surveyRoutes(app)
 
 if (process.env.NODE_ENV || 'production') {
   // Express will serve up production assets
