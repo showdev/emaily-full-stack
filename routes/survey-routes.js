@@ -10,6 +10,14 @@ const surveyTmplate = require('../services/email-templates/survey-template')
 const Survey = mongoose.model('survey')
 
 exports.surveyRoutes = app => {
+  app.get('/api/surveys', requireLogin, async (req, res) => {
+    const surveys = await Survey.find({ _user: req.user.id }).select({
+      recipients: false,
+    })
+
+    res.send(surveys)
+  })
+
   app.get('/api/surveys/:surveyId/:choice', (req, res) => {
     res.send('Thanks for voting')
   })
@@ -41,7 +49,7 @@ exports.surveyRoutes = app => {
           {
             $inc: { [choice]: 1 },
             $set: { 'recipients.$.responded': true },
-            lastResponded: new Date()
+            lastResponded: new Date(),
           }
         ).exec()
       })

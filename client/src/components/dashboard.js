@@ -1,10 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import SurveyList from './surveys/survey-list';
 
 const Dashboard = () => {
   return (
     <div>
-      Dashboard
+      <SurveyList />
       <Link to="/surveys/new">
         <button className="fixed-button wobble btn-primary">
           
