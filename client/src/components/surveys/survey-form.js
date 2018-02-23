@@ -5,12 +5,7 @@ import SurveyField from './survey-field'
 import validateEmails from '../../utils/validate-emails'
 import _ from 'lodash'
 
-const fields = [
-  { label: 'Survey Title', name: 'title', id: 'input-survey-title' },
-  { label: 'Subject Line', name: 'subject', id: 'input-subject-line' },
-  { label: 'Email Body', name: 'body', id: 'input-email-body' },
-  { label: 'Recipient List', name: 'emails', id: 'input-recipient-list' },
-]
+import { fields } from './form-fields'
 
 class SurveyForm extends Component {
   renderFields() {
@@ -32,12 +27,12 @@ class SurveyForm extends Component {
       <div className="card p-4">
         <form
           className="m-0"
-          onSubmit={this.props.handleSubmit(values => console.log(values))}
+          onSubmit={this.props.handleSubmit(() => this.props.onSurveySubmit())}
         >
           {this.renderFields()}
           <div className="d-flex justify-content-between">
             <Link to="/surveys">
-              <button className="btn btn-secondary">Cancell</button>
+              <button className="btn btn-danger">cANCEL</button>
             </Link>
             <button className="btn btn-primary flex" type="submit">
               Next
@@ -53,7 +48,7 @@ class SurveyForm extends Component {
 function validate(values) {
   const errors = {}
 
-  errors.emails = validateEmails(values.emails)
+  errors.recipients = validateEmails(values.recipients)
 
   _.each(fields, ({ name }) => {
     if (!values[name]) {
@@ -67,4 +62,5 @@ function validate(values) {
 export default reduxForm({
   validate,
   form: 'surveyForm',
+  destroyOnUnmount: false,
 })(SurveyForm)
